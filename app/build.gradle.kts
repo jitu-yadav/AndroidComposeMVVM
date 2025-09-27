@@ -1,7 +1,19 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp) // Added KSP plugin
+    alias(libs.plugins.hilt) // Added Hilt plugin
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "com.squareup" && requested.name == "javapoet") {
+            useVersion(libs.versions.javapoet.get()) // This will use "1.13.0" from libs.versions.toml
+            because("Ensure consistent JavaPoet version ${libs.versions.javapoet.get()} across all dependencies to resolve NoSuchMethodError")
+        }
+    }
 }
 
 android {
@@ -49,6 +61,15 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson) // Added Gson converter
+
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

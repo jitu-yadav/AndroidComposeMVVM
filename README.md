@@ -24,6 +24,9 @@ UI: Jetpack Compose
 
 DI: Hilt
 
+API I used for this;
+https://jsonbin.io/login
+
 Architecture: MVVM (Model–View–ViewModel)
 
 Navigation: Navigation Compose

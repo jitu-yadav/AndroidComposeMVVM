@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.navigation.compose)
     kapt(libs.hilt.compiler)
     implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.hilt.navigation.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

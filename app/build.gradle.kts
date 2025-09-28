@@ -3,17 +3,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.ksp) // Added KSP plugin
-    alias(libs.plugins.hilt) // Added Hilt plugin
-}
-
-configurations.all {
-    resolutionStrategy.eachDependency {
-        if (requested.group == "com.squareup" && requested.name == "javapoet") {
-            useVersion(libs.versions.javapoet.get()) // This will use "1.13.0" from libs.versions.toml
-            because("Ensure consistent JavaPoet version ${libs.versions.javapoet.get()} across all dependencies to resolve NoSuchMethodError")
-        }
-    }
+    alias(libs.plugins.hilt.android)
+    id("org.jetbrains.kotlin.kapt") // Add this line
 }
 
 android {
@@ -66,9 +57,10 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson) // Added Gson converter
 
-    // Hilt
     implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
+    implementation(libs.navigation.compose)
+    kapt(libs.hilt.compiler)
+    implementation(libs.lifecycle.viewmodel.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

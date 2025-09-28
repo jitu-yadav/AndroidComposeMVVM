@@ -76,13 +76,13 @@ fun CategoryItem(catergory: String, onClick: (category: String) -> Unit) {
         .clickable{
             onClick(catergory)
         }
-        .clip(RoundedCornerShape(8.dp))
+        .clip(RoundedCornerShape(16.dp))
         .paint(painter = painterResource(id = R.drawable.bg),
             contentScale = ContentScale.Crop)
         .border(1.dp, Color.Gray),
         contentAlignment = Alignment.BottomCenter) {
 
-        Text(text = catergory,
+        Text(text = catergory.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
             fontSize = 20.sp,
             color = Color.White,
             fontWeight = FontWeight.Bold,
